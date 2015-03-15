@@ -1,15 +1,17 @@
 grammar CSV;
 
-file: hdr row+ ;
-hdr : row ;
-
-row : field (',' field)* '\r'? '\n' ;
-
-field
-    : TEXT
-    | STRING
-    |
+file
+    :   header row+
     ;
 
-TEXT   : ~[,\n\r"]+ ;
-STRING : '"' ('""'|~'"')* '"' ; // quote-quote is an escaped quote
+header
+    :   TEXT (',' TEXT)* '\r'? '\n'
+    ;
+
+row
+    :   TEXT (',' TEXT)* '\r'? '\n'
+    ;
+
+TEXT
+    :   ~[,\n\r"]+
+    ;

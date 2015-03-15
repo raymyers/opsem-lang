@@ -1,36 +1,41 @@
-apply plugin: 'java'
-
-defaultTasks 'clean', 'build'
+plugins {
+    id 'java'
+}
 
 repositories {
     mavenCentral()
 }
 
-sourceSets {
-    main {
-        java {
-            include 'build/generated-src/java'
-        }
-    }
-}
-
 configurations { antlr4 }
 
+sourceSets {
+    main { java { srcDir 'build/generated-src/java' } }
+}
+
 dependencies {
-    compile "org.antlr:antlr4-runtime:4.5"
-    antlr4 "org.antlr:antlr4:4.5"
-    testCompile "junit:junit:4.12"
+    implementation 'org.antlr:antlr4-runtime:4.9.2'
+    antlr4 "org.antlr:antlr4:4.9.2"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.1'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 task generateSources(type: JavaExec) {
     inputs.dir file('src/main/antlr')
     outputs.dir file('build/generated-src/java')
 
-    main = 'org.antlr.v4.Tool'
+    mainClass = 'org.antlr.v4.Tool'
     classpath = configurations.antlr4
 
-    args = ["-o", 'build/generated-src/java', "-visitor", fileTree('src/main/antlr').include('*.g4').files].flatten()
+    args = ["-o", 'build/generated-src/java', fileTree('src/main/antlr').include('*.g4').files].flatten()
 
 }
 
 compileJava.dependsOn generateSources
+
+defaultTasks 'clean', 'build'
+
