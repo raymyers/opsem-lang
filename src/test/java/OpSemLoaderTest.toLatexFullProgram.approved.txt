@@ -1,15 +1,15 @@
 \[
-\inference {}{ (Skip ,\, s) => s}[Skip]
+\inference {}{(Skip ,\, s) => s}[Skip]
 \]
 
 \[
-\inference {}{ (Assign\,x\,a ,\, s) => Put\,s\,(Eval\,a\,s)}[Assign]
+\inference {}{(Assign\,x\,a ,\, s) => Put\,s\,(Eval\,a\,s)}[Assign]
 \]
 
 \[
-\inference {(c_1 ,\, s_1) => s_2 \quad (c_2 ,\, s_2) => s_3}{ (Seq\,c_1\,c_2 ,\, s_1) => s_3}[Seq]
+\inference {(c_1 ,\, s_1) => s_2 & (c_2 ,\, s_2) => s_3}{(Seq\,c_1\,c_2 ,\, s_1) => s_3}[Seq]
 \]
 
 \[
-\inference {bval\,b\,s_1 \quad (c ,\, s_1) => s_2 \quad (While\,b\,c ,\, s_2) => s_3}{ (While\,b\,c ,\, s_1) => s_3}[WhileTrue]
+\inference {bval\,b\,s_1 & (c ,\, s_1) => s_2 & (While\,b\,c ,\, s_2) => s_3}{(While\,b\,c ,\, s_1) => s_3}[WhileTrue]
 \]

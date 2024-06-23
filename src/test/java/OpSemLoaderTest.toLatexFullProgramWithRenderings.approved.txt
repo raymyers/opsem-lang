@@ -1,19 +1,19 @@
 \[
-\inference {}{ \Gamma \vdash SKIP}[SkipT]
+\inference {}{\Gamma \vdash SKIP}[SkipT]
 \]
 
 \[
-\inference {\Gamma \vdash a : (\Gamma x)}{ \Gamma \vdash (x ::= a)}[AssignT]
+\inference {\Gamma \vdash a : (\Gamma x)}{\Gamma \vdash (x ::= a)}[AssignT]
 \]
 
 \[
-\inference {\Gamma \vdash c_1 \quad \Gamma \vdash c_2}{ \Gamma \vdash (c_1 \text{ ;; } c_2)}[SeqT]
+\inference {\Gamma \vdash c_1 & \Gamma \vdash c_2}{\Gamma \vdash (c_1 \text{ ;; } c_2)}[SeqT]
 \]
 
 \[
-\inference {\Gamma \vdash b \quad \Gamma \vdash c_1 \quad \Gamma \vdash c_2}{ \Gamma \vdash (\text{IF }a  \text{ THEN } b \text{ ELSE } b))}[IfT]
+\inference {\Gamma \vdash b & \Gamma \vdash c_1 & \Gamma \vdash c_2}{\Gamma \vdash (\text{IF }a  \text{ THEN } b \text{ ELSE } b))}[IfT]
 \]
 
 \[
-\inference {\Gamma \vdash b \quad \Gamma \vdash c}{ \Gamma \vdash (\text{WHILE } b \text{ DO } c)}[WhileT]
+\inference {\Gamma \vdash b & \Gamma \vdash c}{\Gamma \vdash (\text{WHILE } b \text{ DO } c)}[WhileT]
 \]

@@ -1,0 +1,3 @@
+\[
+\inference {\inference {\inference {(\Gamma\,y) = Ity}{\Gamma \vdash (V\,x) : Ity}[]}{\Gamma \vdash (x ::= (V\,y))}[] & \inference {\inference {\inference {(\Gamma\,x) = Ity}{\Gamma \vdash (V\,x) : Ity}[] & \inference {(\Gamma\,y) = Ity}{\Gamma \vdash (V\,y) : Ity}[]}{\Gamma \vdash (Plus\,(V\,x)\,(V\,y)) : Ity}[]}{\Gamma \vdash (y ::= (Plus\,(V\,x)\,(V\,y)))}[]}{\Gamma \vdash ((x ::= (V\,y)) \text{ ;; } (Plus\,(V\,x)\,(V\,y)))}[Derivation912]
+\]

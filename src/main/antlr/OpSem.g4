@@ -10,16 +10,24 @@ latexBlock : LATEX LBRACE latexRendering* LINEBREAK? RBRACE;
 latexRendering: LINEBREAK VARIABLE+ EQUAL StringLiteral  ;
 
 semRule: LINEBREAK?
-    RULE VARIABLE LBRACE
-    topCondLine* LINEBREAK
-    TILDE
-    bottomCondLine*
-    LINEBREAK? RBRACE
-    LINEBREAK?
+    RULE VARIABLE semBlock
     ;
-topCondLine : condLine;
-bottomCondLine : condLine;
-condLine: (LINEBREAK cond (RARROW cond)?);
+
+semBlock:
+     LBRACE
+     condLayer
+     (LINEBREAK
+     TILDE
+     condLayer)+
+     LINEBREAK? RBRACE
+     LINEBREAK?
+     ;
+condLayer : condLine*;
+condLine
+    : LINEBREAK semBlock
+    | LINEBREAK cond (RARROW cond)?
+    ;
+
 cond : exprs (COMMA exprs)*  ;
 
 exprs: expr+;

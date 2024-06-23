@@ -37,7 +37,7 @@ public class LatexRenderer {
         return "(" + inner + ")";
     }
 
-    public String condLineToLatex(CondLine condLine) {
+    public String simpleCondLineToLatex(CondLine.SimpleCondLine condLine) {
         if (condLine.post().isPresent()) {
             return condToLatex(condLine.pre()) + " => " + condToLatex(condLine.post().get());
         }
@@ -87,6 +87,7 @@ public class LatexRenderer {
                     return template.render();
                 } else {
                     // WARN?
+                    System.err.println("WARN: Arg count mismatch for label " + label.name());
                 }
             }
         }
@@ -100,19 +101,52 @@ public class LatexRenderer {
     }
 
     public String semRuleToLatex(SemRule semRule) {
-        String sep = " \\quad ";
-        String topLineStr = condLinesToLatex(semRule.topLines(), sep);
-        String bottomLineStr = condLinesToLatex(semRule.bottomLines(), sep);
-        String inference = "\\inference {" + topLineStr + "}{ " + bottomLineStr + "}[" + semRule.name() + "]";
-        return slashBracketWrap(inference);
+        return slashBracketWrap(condLayersToLatex(semRule.name(), semRule.layers()));
+    }
+
+    private String condLayersToLatex(String name, List<CondLayer> layers) {
+        String templateStr = "\\inference {<top>}{<bottom>}[<name>]";
+        ST template = new ST(templateStr);
+        boolean topFull = false;
+        boolean bottomFull = false;
+        String sep = " & ";
+
+        for (var layer : layers) {
+            String renderedLayer = condLayerToLatex(layer, sep);
+            if (!topFull) {
+                template.add("top", renderedLayer);
+                topFull = true;
+            } else if (!bottomFull) {
+                template.add("bottom", renderedLayer);
+                bottomFull = true;
+            } else {
+                ST innerTemplate = template;
+                template = new ST(templateStr);
+                template.add("top", innerTemplate.render());
+                template.add("bottom", renderedLayer);
+            }
+        }
+        template.add("name", name);
+
+        return template.render();
     }
 
     private static String slashBracketWrap(String inference) {
         return "\\[\n" + inference + "\n\\]";
     }
 
-    private String condLinesToLatex(List<CondLine> lines, String sep) {
-        return lines.stream().map(this::condLineToLatex).collect(Collectors.joining(sep));
+    private String condLayerToLatex(CondLayer layer, String sep) {
+        return layer.condLines().stream().map(this::condLineToLatex).collect(Collectors.joining(sep));
+    }
+
+    private String condLineToLatex(CondLine condLine) {
+        if (condLine instanceof CondLine.SimpleCondLine simpleCondLine) {
+            return simpleCondLineToLatex(simpleCondLine);
+        }
+        if (condLine instanceof CondLine.CondBlock condBlock) {
+            return condLayersToLatex("", condBlock.layers());
+        }
+        return "";
     }
 
 

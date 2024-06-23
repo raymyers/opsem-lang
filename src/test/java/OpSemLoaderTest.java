@@ -78,6 +78,47 @@ public class OpSemLoaderTest {
         }
     """;
 
+    public static final String TREE = """
+        latex {
+            WellTyped a = "\\Gamma \\vdash <a>"
+            HasType a b = "\\Gamma \\vdash <a> : <b>"
+            TypeOf a = "\\Gamma\\,<a>"
+            While b c = "\\text{WHILE } <b> \\text{ DO } <c>"
+            Assign a b = "<a> ::= <b>"
+            Seq a b = "<a> \\text{ ;; } <b>"
+            If a b c = "\\text{IF }a  \\text{ THEN } b \\text{ ELSE } b)"
+            Eq a b = "<a> = <b>"
+        }
+
+        rule Derivation912 {
+            {
+                Eq (TypeOf y) Ity
+                ~
+                HasType (V x) Ity
+                ~
+                WellTyped (Assign x (V y))
+            }
+            {
+                {
+                    Eq (TypeOf x) Ity
+                    ~
+                    HasType (V x) Ity
+                }
+                {
+                    Eq (TypeOf y) Ity
+                    ~
+                    HasType (V y) Ity
+                }
+                ~
+                HasType (Plus (V x) (V y)) Ity
+                ~
+                WellTyped (Assign y (Plus (V x) (V y)))
+            }
+            ~
+            WellTyped (Seq (Assign x (V y)) (Plus (V x) (V y)))
+        }
+    """;
+
     @Test
     void generatAst()
     {
@@ -130,6 +171,15 @@ public class OpSemLoaderTest {
     void toLatexFullProgramWithRenderings()
     {
         OpSemLoader subject = new OpSemLoader(FULL_PROGRAM_2);
+        assertTrue(subject.valid(), subject.getSyntaxErrors());
+
+        String latex = LatexRenderer.programToLatex(subject.toProgram());
+        Approvals.verify(latex);
+    }
+    @Test
+    void toLatexDerivationTree()
+    {
+        OpSemLoader subject = new OpSemLoader(TREE);
         assertTrue(subject.valid(), subject.getSyntaxErrors());
 
         String latex = LatexRenderer.programToLatex(subject.toProgram());

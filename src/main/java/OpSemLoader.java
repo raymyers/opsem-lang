@@ -16,7 +16,7 @@ public class OpSemLoader {
 
         @Override
         public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-            syntaxErrors.add("Syntax Error: " + msg + ", char position: " + charPositionInLine);
+            syntaxErrors.add(String.format("Syntax Error on %s:%s - %s", line, charPositionInLine, msg));
         }
 
         public List<String> getSyntaxErrors(){

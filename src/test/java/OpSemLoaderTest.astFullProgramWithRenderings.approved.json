@@ -3,353 +3,386 @@
   "rules" : [ {
     "@type" : "SemRule",
     "name" : "SkipT",
-    "topLines" : [ ],
-    "bottomLines" : [ {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
+    "layers" : [ {
+      "@type" : "CondLayer",
+      "condLines" : [ ]
+    }, {
+      "@type" : "CondLayer",
+      "condLines" : [ {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
           "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "Var",
-            "name" : "SKIP"
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "Var",
+              "name" : "SKIP"
+            } ]
           } ]
-        } ]
-      },
-      "post" : null
+        },
+        "post" : null
+      } ]
     } ]
   }, {
     "@type" : "SemRule",
     "name" : "AssignT",
-    "topLines" : [ {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
+    "layers" : [ {
+      "@type" : "CondLayer",
+      "condLines" : [ {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
           "exprs" : [ {
-            "@type" : "Var",
-            "name" : "HasType"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "Var",
-            "name" : "a"
-          }, {
-            "@type" : "ExprsWrap",
-            "exprs" : {
-              "exprs" : [ {
-                "@type" : "Var",
-                "name" : "TypeOf"
-              }, {
-                "@type" : "Var",
-                "name" : "context"
-              }, {
-                "@type" : "Var",
-                "name" : "x"
-              } ]
-            }
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "HasType"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "Var",
+              "name" : "a"
+            }, {
+              "@type" : "ExprsWrap",
+              "exprs" : {
+                "exprs" : [ {
+                  "@type" : "Var",
+                  "name" : "TypeOf"
+                }, {
+                  "@type" : "Var",
+                  "name" : "context"
+                }, {
+                  "@type" : "Var",
+                  "name" : "x"
+                } ]
+              }
+            } ]
           } ]
-        } ]
-      },
-      "post" : null
-    } ],
-    "bottomLines" : [ {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
+        },
+        "post" : null
+      } ]
+    }, {
+      "@type" : "CondLayer",
+      "condLines" : [ {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
           "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "ExprsWrap",
-            "exprs" : {
-              "exprs" : [ {
-                "@type" : "Var",
-                "name" : "Assign"
-              }, {
-                "@type" : "Var",
-                "name" : "x"
-              }, {
-                "@type" : "Var",
-                "name" : "a"
-              } ]
-            }
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "ExprsWrap",
+              "exprs" : {
+                "exprs" : [ {
+                  "@type" : "Var",
+                  "name" : "Assign"
+                }, {
+                  "@type" : "Var",
+                  "name" : "x"
+                }, {
+                  "@type" : "Var",
+                  "name" : "a"
+                } ]
+              }
+            } ]
           } ]
-        } ]
-      },
-      "post" : null
+        },
+        "post" : null
+      } ]
     } ]
   }, {
     "@type" : "SemRule",
     "name" : "SeqT",
-    "topLines" : [ {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
+    "layers" : [ {
+      "@type" : "CondLayer",
+      "condLines" : [ {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
           "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "Var",
-            "name" : "c1"
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "Var",
+              "name" : "c1"
+            } ]
           } ]
-        } ]
-      },
-      "post" : null
+        },
+        "post" : null
+      }, {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
+          "exprs" : [ {
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "Var",
+              "name" : "c2"
+            } ]
+          } ]
+        },
+        "post" : null
+      } ]
     }, {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
+      "@type" : "CondLayer",
+      "condLines" : [ {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
           "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "Var",
-            "name" : "c2"
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "ExprsWrap",
+              "exprs" : {
+                "exprs" : [ {
+                  "@type" : "Var",
+                  "name" : "Seq"
+                }, {
+                  "@type" : "Var",
+                  "name" : "c1"
+                }, {
+                  "@type" : "Var",
+                  "name" : "c2"
+                } ]
+              }
+            } ]
           } ]
-        } ]
-      },
-      "post" : null
-    } ],
-    "bottomLines" : [ {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
-          "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "ExprsWrap",
-            "exprs" : {
-              "exprs" : [ {
-                "@type" : "Var",
-                "name" : "Seq"
-              }, {
-                "@type" : "Var",
-                "name" : "c1"
-              }, {
-                "@type" : "Var",
-                "name" : "c2"
-              } ]
-            }
-          } ]
-        } ]
-      },
-      "post" : null
+        },
+        "post" : null
+      } ]
     } ]
   }, {
     "@type" : "SemRule",
     "name" : "IfT",
-    "topLines" : [ {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
+    "layers" : [ {
+      "@type" : "CondLayer",
+      "condLines" : [ {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
           "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "Var",
-            "name" : "b"
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "Var",
+              "name" : "b"
+            } ]
           } ]
-        } ]
-      },
-      "post" : null
+        },
+        "post" : null
+      }, {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
+          "exprs" : [ {
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "Var",
+              "name" : "c1"
+            } ]
+          } ]
+        },
+        "post" : null
+      }, {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
+          "exprs" : [ {
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "Var",
+              "name" : "c2"
+            } ]
+          } ]
+        },
+        "post" : null
+      } ]
     }, {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
+      "@type" : "CondLayer",
+      "condLines" : [ {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
           "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "Var",
-            "name" : "c1"
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "ExprsWrap",
+              "exprs" : {
+                "exprs" : [ {
+                  "@type" : "Var",
+                  "name" : "If"
+                }, {
+                  "@type" : "Var",
+                  "name" : "b"
+                }, {
+                  "@type" : "Var",
+                  "name" : "c1"
+                }, {
+                  "@type" : "Var",
+                  "name" : "c2"
+                } ]
+              }
+            } ]
           } ]
-        } ]
-      },
-      "post" : null
-    }, {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
-          "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "Var",
-            "name" : "c2"
-          } ]
-        } ]
-      },
-      "post" : null
-    } ],
-    "bottomLines" : [ {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
-          "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "ExprsWrap",
-            "exprs" : {
-              "exprs" : [ {
-                "@type" : "Var",
-                "name" : "If"
-              }, {
-                "@type" : "Var",
-                "name" : "b"
-              }, {
-                "@type" : "Var",
-                "name" : "c1"
-              }, {
-                "@type" : "Var",
-                "name" : "c2"
-              } ]
-            }
-          } ]
-        } ]
-      },
-      "post" : null
+        },
+        "post" : null
+      } ]
     } ]
   }, {
     "@type" : "SemRule",
     "name" : "WhileT",
-    "topLines" : [ {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
+    "layers" : [ {
+      "@type" : "CondLayer",
+      "condLines" : [ {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
           "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "Var",
-            "name" : "b"
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "Var",
+              "name" : "b"
+            } ]
           } ]
-        } ]
-      },
-      "post" : null
+        },
+        "post" : null
+      }, {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
+          "exprs" : [ {
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "Var",
+              "name" : "c"
+            } ]
+          } ]
+        },
+        "post" : null
+      } ]
     }, {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
+      "@type" : "CondLayer",
+      "condLines" : [ {
+        "@type" : "SimpleCondLine",
+        "pre" : {
+          "@type" : "Cond",
           "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "Var",
-            "name" : "c"
+            "exprs" : [ {
+              "@type" : "Var",
+              "name" : "WellTyped"
+            }, {
+              "@type" : "Var",
+              "name" : "context"
+            }, {
+              "@type" : "ExprsWrap",
+              "exprs" : {
+                "exprs" : [ {
+                  "@type" : "Var",
+                  "name" : "While"
+                }, {
+                  "@type" : "Var",
+                  "name" : "b"
+                }, {
+                  "@type" : "Var",
+                  "name" : "c"
+                } ]
+              }
+            } ]
           } ]
-        } ]
-      },
-      "post" : null
-    } ],
-    "bottomLines" : [ {
-      "@type" : "CondLine",
-      "pre" : {
-        "@type" : "Cond",
-        "exprs" : [ {
-          "exprs" : [ {
-            "@type" : "Var",
-            "name" : "WellTyped"
-          }, {
-            "@type" : "Var",
-            "name" : "context"
-          }, {
-            "@type" : "ExprsWrap",
-            "exprs" : {
-              "exprs" : [ {
-                "@type" : "Var",
-                "name" : "While"
-              }, {
-                "@type" : "Var",
-                "name" : "b"
-              }, {
-                "@type" : "Var",
-                "name" : "c"
-              } ]
-            }
-          } ]
-        } ]
-      },
-      "post" : null
+        },
+        "post" : null
+      } ]
     } ]
   } ],
   "latexRenderings" : [ {
+    "@type" : "LatexRendering",
     "label" : "context",
     "params" : [ ],
     "rendering" : "\\Gamma"
   }, {
+    "@type" : "LatexRendering",
     "label" : "WellTyped",
     "params" : [ "c", "a" ],
     "rendering" : "<c> \\vdash <a>"
   }, {
+    "@type" : "LatexRendering",
     "label" : "HasType",
     "params" : [ "c", "a", "b" ],
     "rendering" : "<c> \\vdash <a> : <b>"
   }, {
+    "@type" : "LatexRendering",
     "label" : "TypeOf",
     "params" : [ "c", "a" ],
     "rendering" : "<c> <a>"
   }, {
+    "@type" : "LatexRendering",
     "label" : "While",
     "params" : [ "b", "c" ],
     "rendering" : "\\text{WHILE } <b> \\text{ DO } <c>"
   }, {
+    "@type" : "LatexRendering",
     "label" : "Assign",
     "params" : [ "a", "b" ],
     "rendering" : "<a> ::= <b>"
   }, {
+    "@type" : "LatexRendering",
     "label" : "Seq",
     "params" : [ "a", "b" ],
     "rendering" : "<a> \\text{ ;; } <b>"
   }, {
+    "@type" : "LatexRendering",
     "label" : "If",
     "params" : [ "a", "b", "c" ],
     "rendering" : "\\text{IF }a  \\text{ THEN } b \\text{ ELSE } b)"

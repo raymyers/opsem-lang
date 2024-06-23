@@ -49,24 +49,28 @@ public class OpSemTransformer {
 
     public SemRule transformSemRule(OpSemParser.SemRuleContext ctx) {
         String name = ctx.VARIABLE().getText();
-        List<CondLine> topLines = ctx.topCondLine().stream().map(this::transformTopCondLine).collect(Collectors.toUnmodifiableList());
-        List<CondLine> bottomLines = ctx.bottomCondLine().stream().map(this::transformBottomCondLine).collect(Collectors.toUnmodifiableList());
-        return new SemRule(name, topLines, bottomLines);
+        OpSemParser.SemBlockContext semBlockContext = ctx.semBlock();
+        List<CondLayer> layers = semBlockToLayers(semBlockContext);
+        return new SemRule(name, layers);
     }
 
-    private CondLine transformBottomCondLine(OpSemParser.BottomCondLineContext ctx) {
-        return transformCondLine(ctx.condLine());
+    private List<CondLayer> semBlockToLayers(OpSemParser.SemBlockContext semBlockContext) {
+        return semBlockContext.condLayer().stream().map(this::transformCondLayer).collect(Collectors.toUnmodifiableList());
     }
 
-    private CondLine transformTopCondLine(OpSemParser.TopCondLineContext ctx) {
-        return transformCondLine(ctx.condLine());
+    private CondLayer transformCondLayer(OpSemParser.CondLayerContext ctx) {
+        return new CondLayer(ctx.condLine().stream().map(this::transformCondLine).collect(Collectors.toUnmodifiableList()));
     }
 
     private CondLine transformCondLine(OpSemParser.CondLineContext ctx) {
+        if (ctx.semBlock() != null) {
+            return new CondLine.CondBlock(semBlockToLayers(ctx.semBlock()));
+        }
         return switch (ctx.cond().size()) {
             case 0 -> throw new RuntimeException("Parse error, expected 1 or 2 conds, got 0");
-            case 1 -> new CondLine(transformCond(ctx.cond().get(0)), Optional.empty());
-            case 2 -> new CondLine(
+            case 1 -> new CondLine.SimpleCondLine(
+                    transformCond(ctx.cond().get(0)), Optional.empty());
+            case 2 -> new CondLine.SimpleCondLine(
                     transformCond(ctx.cond().get(0)),
                     Optional.of(transformCond(ctx.cond().get(1))));
             default -> throw new RuntimeException("Parse error, expected 1 or 2 conds, got more");
