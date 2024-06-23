@@ -1,3 +1,5 @@
+import ast.Program;
+import ast.SemRule;
 import org.approvaltests.Approvals;
 import org.junit.jupiter.api.Test;
 
@@ -98,7 +100,7 @@ public class OpSemLoaderTest {
         OpSemLoader subject = new OpSemLoader(input);
         assertTrue(subject.valid(), subject.getSyntaxErrors());
 
-        String latex = subject.toProgram().rules().get(0).toLatex();
+        String latex = SemRule.toLatex(subject.toProgram().rules().get(0));
         Approvals.verify(latex);
     }
 
@@ -109,7 +111,7 @@ public class OpSemLoaderTest {
         OpSemLoader subject = new OpSemLoader(FULL_PROGRAM_1);
         assertTrue(subject.valid(), subject.getSyntaxErrors());
 
-        String latex = subject.toProgram().toLatex();
+        String latex = Program.toLatex(subject.toProgram());
         Approvals.verify(latex);
     }
 
@@ -128,7 +130,7 @@ public class OpSemLoaderTest {
         OpSemLoader subject = new OpSemLoader(FULL_PROGRAM_2);
         assertTrue(subject.valid(), subject.getSyntaxErrors());
 
-        String latex = subject.toProgram().toLatex();
+        String latex = Program.toLatex(subject.toProgram());
         Approvals.verify(latex);
     }
 }

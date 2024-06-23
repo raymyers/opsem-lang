@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public record SemRule(String name, List<CondLine> topLines, List<CondLine> bottomLines) implements BaseAst {
-    public String toLatex() {
+    public static String toLatex(SemRule semRule) {
         String sep = " \\quad ";
-        String topLineStr = condLinesToLatex(topLines, sep);
-        String bottomLineStr = condLinesToLatex(bottomLines, sep);
-        String inference = "\\inference {" + topLineStr + "}{ " + bottomLineStr + "}[" + name + "]";
+        String topLineStr = semRule.condLinesToLatex(semRule.topLines, sep);
+        String bottomLineStr = semRule.condLinesToLatex(semRule.bottomLines, sep);
+        String inference = "\\inference {" + topLineStr + "}{ " + bottomLineStr + "}[" + semRule.name + "]";
         return slashBracketWrap(inference);
     }
 
