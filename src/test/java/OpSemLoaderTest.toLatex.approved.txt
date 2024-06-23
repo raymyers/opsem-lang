@@ -1,3 +1,3 @@
 \[
-\inference {bval\,b\,s1 \quad c ,\, s1 => s2 \quad While\,b\,c ,\, s2 => s3}{ While\,b\,c ,\, s1 => s3}[WhileTrue]
+\inference {bval\,b\,s_1 \quad (c ,\, s_1) => s_2 \quad (While\,b\,c ,\, s_2) => s_3}{ (While\,b\,c ,\, s_1) => s_3}[WhileTrue]
 \]

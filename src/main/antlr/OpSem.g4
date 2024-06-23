@@ -1,7 +1,13 @@
 grammar OpSem;
 start
-    : semRule* EOF
+    : block* EOF
     ;
+
+block : semRule | latexBlock;
+
+latexBlock : LATEX LBRACE latexRendering* LINEBREAK? RBRACE;
+
+latexRendering: LINEBREAK VARIABLE+ EQUAL StringLiteral  ;
 
 semRule: LINEBREAK?
     RULE VARIABLE LBRACE
@@ -27,6 +33,9 @@ variable
 
 RULE : 'rule';
 
+LATEX : 'latex';
+
+
 VARIABLE
     : VALID_ID_START VALID_ID_CHAR*
     ;
@@ -42,7 +51,13 @@ fragment VALID_ID_CHAR
     | '0' .. '9'
     ;
 
+StringLiteral
+  : UnterminatedStringLiteral '"'
+  ;
 
+fragment UnterminatedStringLiteral
+  : '"' (~["] | '\\' (. | EOF))*
+  ;
 fragment NUMBER
     : ('0' .. '9')+ ('.' ('0' .. '9')+)?
     ;
@@ -60,7 +75,6 @@ fragment SIGN
     : '+'
     | '-'
     ;
-
 
 
 TILDE
@@ -89,7 +103,9 @@ RPAREN
 RARROW
     : '=>'
     ;
-
+EQUAL
+    : '='
+    ;
 LINEBREAK : [\r\n]+;
 WS
     : [ \t]+ -> skip

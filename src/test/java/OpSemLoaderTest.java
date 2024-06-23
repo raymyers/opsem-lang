@@ -34,6 +34,46 @@ public class OpSemLoaderTest {
         }
     """;
 
+    public static final String FULL_PROGRAM_2 = """
+        latex {
+            context = "\\Gamma"
+            WellTyped c a = "c \\bot a"
+            HasType c a b = "c \\bot a : b"
+            TypeOf c a = "c a"
+        }
+        
+        rule SkipT {
+            ~
+            WellTyped context SKIP
+        }
+                
+        rule AssignT {
+            HasType context a (TypeOf context x)
+            ~
+            WellTyped context (Assign x a)
+        }
+                
+        rule SeqT {
+            WellTyped context c1
+            WellTyped context c2
+            ~
+            WellTyped context (Seq c1 c2)
+        }
+        rule IfT {
+            WellTyped context b
+            WellTyped context c1
+            WellTyped context c2
+            ~
+            WellTyped (If b c1 c2)
+        }
+        rule WhileT {
+            WellTyped context b
+            WellTyped context c
+            ~
+            WellTyped context (While b c)
+        }
+    """;
+
     @Test
     void generatAst()
     {
@@ -56,7 +96,7 @@ public class OpSemLoaderTest {
             }
         """;
         OpSemLoader subject = new OpSemLoader(input);
-        assertTrue(subject.valid());
+        assertTrue(subject.valid(), subject.getSyntaxErrors());
 
         String latex = subject.toProgram().rules().get(0).toLatex();
         Approvals.verify(latex);
@@ -67,7 +107,26 @@ public class OpSemLoaderTest {
     void toLatexFullProgram()
     {
         OpSemLoader subject = new OpSemLoader(FULL_PROGRAM_1);
-        assertTrue(subject.valid());
+        assertTrue(subject.valid(), subject.getSyntaxErrors());
+
+        String latex = subject.toProgram().toLatex();
+        Approvals.verify(latex);
+    }
+
+
+    @Test
+    void astFullProgramWithRenderings()
+    {
+        OpSemLoader subject = new OpSemLoader(FULL_PROGRAM_2);
+        assertTrue(subject.valid(), subject.getSyntaxErrors());
+
+        ApprovalHelpers.verifyAsJson(subject.toProgram());
+    }
+    @Test
+    void toLatexFullProgramWithRenderings()
+    {
+        OpSemLoader subject = new OpSemLoader(FULL_PROGRAM_2);
+        assertTrue(subject.valid(), subject.getSyntaxErrors());
 
         String latex = subject.toProgram().toLatex();
         Approvals.verify(latex);

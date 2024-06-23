@@ -8,6 +8,7 @@ public class OpSemLoader {
 
     private final List<String> syntaxErrors;
     private final OpSemParser parser;
+    private final OpSemParser.StartContext startContext;
 
     private class ErrorListener extends ConsoleErrorListener {
 
@@ -36,11 +37,15 @@ public class OpSemLoader {
         lexer.addErrorListener(errorListener);
 
         syntaxErrors = errorListener.getSyntaxErrors();
-
-
+        startContext = parser.start();
     }
+
+    private String getStringTree() {
+        return startContext.toStringTree(parser);
+    }
+
     public Program toProgram() {
-        return new OpSemTransformer().transformStart(parser.start());
+        return new OpSemTransformer().transformStart(startContext);
     }
 
     public boolean valid(){
