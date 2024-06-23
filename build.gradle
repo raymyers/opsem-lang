@@ -1,9 +1,16 @@
 plugins {
     id 'java'
+    id 'application'
 }
+
+group = "ai.mender"
 
 repositories {
     mavenCentral()
+}
+
+application {
+    mainClass = 'ai.mender.opsem.Main'
 }
 
 configurations { antlr4 }
@@ -16,12 +23,16 @@ dependencies {
     implementation 'org.antlr:antlr4-runtime:4.9.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.17.1'
+    implementation 'info.picocli:picocli:4.7.6'
     implementation 'org.antlr:ST4:4.3.4'
+
     antlr4 "org.antlr:antlr4:4.9.2"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.1'
     testImplementation("com.approvaltests:approvaltests:24.2.0")
+
+    annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
 }
 
 test {
@@ -35,11 +46,20 @@ task generateSources(type: JavaExec) {
     mainClass = 'org.antlr.v4.Tool'
     classpath = configurations.antlr4
 
-    args = ["-o", 'build/generated-src/java', fileTree('src/main/antlr').include('*.g4').files].flatten()
+    args = [
+            "-o",
+            'build/generated-src/java',
+            fileTree('src/main/antlr').include('*.g4').files,
+            "-package",
+            "ai.mender.opsem.generated"
+    ].flatten()
 
 }
 
 compileJava.dependsOn generateSources
+compileJava {
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
+}
 
 defaultTasks 'clean', 'build'
 

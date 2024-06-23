@@ -1,10 +1,13 @@
+package ai.mender.opsem;
+
 import ast.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
+import ai.mender.opsem.generated.OpSemParser;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 
 public class OpSemTransformer {
 
@@ -12,7 +15,7 @@ public class OpSemTransformer {
         var semRuleBlocks = ctx.block().stream().filter(b -> b.semRule() != null);
 
         List<SemRule> rules = semRuleBlocks
-                .map(OpSemParser.BlockContext::semRule)
+                .map(ai.mender.opsem.generated.OpSemParser.BlockContext::semRule)
                 .map(this::transformSemRule)
                 .collect(Collectors.toUnmodifiableList());
         var latexBlocks = ctx.block().stream().filter(b -> b.latexBlock() != null);

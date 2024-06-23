@@ -5,12 +5,19 @@
 For now, see the [tests](./src/test/java/OpSemLoaderTest.java) for usage. We can make a CLI if there's interest.
 
 ## Requirements
-* Java 21
+* Java 21+
 
 ## Run
 
 `./gradlew test`
 
+```
+./gradlew install
+./build/install/opsem/bin/opsem examples/example.opsem
+```
+
+See `examples/example.tex` for the appropriate LaTeX headers, such as including the semantics package. 
+To render it, try OverLeaf.
 
 [//]: # ([![.github/workflows/build.yml]&#40;https://github.com/vicsz/antlr4-gradle-template-CSVtoXML-translator/actions/workflows/build.yml/badge.svg&#41;]&#40;https://github.com/vicsz/antlr4-gradle-template-CSVtoXML-translator/actions/workflows/build.yml&#41;)
 

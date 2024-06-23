@@ -1,3 +1,5 @@
+package ai.mender.opsem;
+
 import ast.*;
 import org.stringtemplate.v4.ST;
 

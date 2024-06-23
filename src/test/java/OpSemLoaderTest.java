@@ -1,3 +1,5 @@
+import ai.mender.opsem.LatexRenderer;
+import ai.mender.opsem.OpSemLoader;
 import org.approvaltests.Approvals;
 import org.junit.jupiter.api.Test;
 

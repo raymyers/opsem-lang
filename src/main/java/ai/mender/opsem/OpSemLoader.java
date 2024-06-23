@@ -1,6 +1,12 @@
+package ai.mender.opsem;
+
+import ai.mender.opsem.generated.OpSemLexer;
+import ai.mender.opsem.generated.OpSemParser;
 import ast.Program;
 import org.antlr.v4.runtime.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +15,29 @@ public class OpSemLoader {
     private final List<String> syntaxErrors;
     private final OpSemParser parser;
     private final OpSemParser.StartContext startContext;
+
+    public OpSemLoader(File file) throws IOException {
+        this(new OpSemLexer(CharStreams.fromPath(file.toPath())));
+    }
+    public OpSemLoader(String input){
+        this(new OpSemLexer(CharStreams.fromString(input)));
+    }
+
+
+    private OpSemLoader(OpSemLexer lexer) {
+        this.parser = new OpSemParser(new CommonTokenStream(lexer));
+
+        ErrorListener errorListener = new ErrorListener();
+
+        //Remove and Replace Default Console Error Listeners
+        lexer.removeErrorListeners();
+        parser.removeErrorListeners();
+        parser.addErrorListener(errorListener);
+        lexer.addErrorListener(errorListener);
+
+        syntaxErrors = errorListener.getSyntaxErrors();
+        startContext = parser.start();
+    }
 
     private class ErrorListener extends ConsoleErrorListener {
 
@@ -24,21 +53,6 @@ public class OpSemLoader {
         }
     }
 
-    OpSemLoader(String input){
-        OpSemLexer lexer = new OpSemLexer(CharStreams.fromString(input));
-        this.parser = new OpSemParser(new CommonTokenStream(lexer));
-
-        ErrorListener errorListener = new ErrorListener();
-
-        //Remove and Replace Default Console Error Listeners
-        lexer.removeErrorListeners();
-        parser.removeErrorListeners();
-        parser.addErrorListener(errorListener);
-        lexer.addErrorListener(errorListener);
-
-        syntaxErrors = errorListener.getSyntaxErrors();
-        startContext = parser.start();
-    }
 
     private String getStringTree() {
         return startContext.toStringTree(parser);
