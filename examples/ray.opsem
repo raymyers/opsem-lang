@@ -1,0 +1,41 @@
+latex {
+    context = "\Gamma"
+    WellTyped c a = "<c> \vdash <a>"
+    HasType c a b = "<c> \vdash <a> : <b>"
+    TypeOf c a = "<c> <a>"
+    While b c = "\text{WHILE } <b> \text{ DO } <c>"
+    Assign a b = "<a> ::= <b>"
+    Seq a b = "<a> \text{ ;; } <b>"
+    If a b c = "\text{IF }a  \text{ THEN } b \text{ ELSE } b)"
+}
+
+rule SkipT {
+    ~
+    WellTyped context SKIP
+}
+
+rule AssignT {
+    HasType context a (TypeOf context x)
+    ~
+    WellTyped context (Assign x a)
+}
+
+rule SeqT {
+    WellTyped context c1
+    WellTyped context c2
+    ~
+    WellTyped context (Seq c1 c2)
+}
+rule IfT {
+    WellTyped context b
+    WellTyped context c1
+    WellTyped context c2
+    ~
+    WellTyped context (If b c1 c2)
+}
+rule WhileT {
+    WellTyped context b
+    WellTyped context c
+    ~
+    WellTyped context (While b c)
+}
