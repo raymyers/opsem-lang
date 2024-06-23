@@ -1,4 +1,5 @@
 import ast.*;
+import org.stringtemplate.v4.ST;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,11 +72,31 @@ public class LatexRenderer {
     }
 
     public String exprsToLatex(Exprs exprs) {
-        return exprs.exprs().stream().map(e -> {
-            if (e instanceof Expr.ExprsWrap ew) return exprsWrapToLatex(ew);
-            if (e instanceof Expr.Var v) return varToLatex(v);
-            return ""; // Shouldn't happen
-        }).collect(Collectors.joining("\\,"));
+        if (exprs.exprs().size() > 1) {
+            Expr first = exprs.exprs().get(0);
+            int argCount = exprs.exprs().size() - 1;
+            if (first instanceof Expr.Var label) {
+                LatexRendering latexRendering = this.renderingMap.get(label.name());
+                if (latexRendering != null && latexRendering.params().size() == argCount) {
+                    ST template = new ST(latexRendering.rendering());
+                    for (int i = 0; i < argCount; i++) {
+                        Expr arg = exprs.exprs().get(i + 1);
+                        String param = latexRendering.params().get(i);
+                        template.add(param, exprToLatex(arg));
+                    }
+                    return template.render();
+                } else {
+                    // WARN?
+                }
+            }
+        }
+        return exprs.exprs().stream().map(this::exprToLatex).collect(Collectors.joining("\\,"));
+    }
+
+    private String exprToLatex(Expr e) {
+        if (e instanceof Expr.ExprsWrap ew) return exprsWrapToLatex(ew);
+        if (e instanceof Expr.Var v) return varToLatex(v);
+        return "";
     }
 
     public String semRuleToLatex(SemRule semRule) {

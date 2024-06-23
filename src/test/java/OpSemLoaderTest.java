@@ -37,9 +37,13 @@ public class OpSemLoaderTest {
     public static final String FULL_PROGRAM_2 = """
         latex {
             context = "\\Gamma"
-            WellTyped c a = "c \\bot a"
-            HasType c a b = "c \\bot a : b"
-            TypeOf c a = "c a"
+            WellTyped c a = "<c> \\vdash <a>"
+            HasType c a b = "<c> \\vdash <a> : <b>"
+            TypeOf c a = "<c> <a>"
+            While b c = "\\text{WHILE } <b> \\text{ DO } <c>"
+            Assign a b = "<a> ::= <b>"
+            Seq a b = "<a> \\text{ ;; } <b>"
+            If a b c = "\\text{IF }a  \\text{ THEN } b \\text{ ELSE } b)"
         }
         
         rule SkipT {
@@ -64,7 +68,7 @@ public class OpSemLoaderTest {
             WellTyped context c1
             WellTyped context c2
             ~
-            WellTyped (If b c1 c2)
+            WellTyped context (If b c1 c2)
         }
         rule WhileT {
             WellTyped context b

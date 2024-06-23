@@ -226,6 +226,9 @@
             "@type" : "Var",
             "name" : "WellTyped"
           }, {
+            "@type" : "Var",
+            "name" : "context"
+          }, {
             "@type" : "ExprsWrap",
             "exprs" : {
               "exprs" : [ {
@@ -325,14 +328,30 @@
   }, {
     "label" : "WellTyped",
     "params" : [ "c", "a" ],
-    "rendering" : "c \\bot a"
+    "rendering" : "<c> \\vdash <a>"
   }, {
     "label" : "HasType",
     "params" : [ "c", "a", "b" ],
-    "rendering" : "c \\bot a : b"
+    "rendering" : "<c> \\vdash <a> : <b>"
   }, {
     "label" : "TypeOf",
     "params" : [ "c", "a" ],
-    "rendering" : "c a"
+    "rendering" : "<c> <a>"
+  }, {
+    "label" : "While",
+    "params" : [ "b", "c" ],
+    "rendering" : "\\text{WHILE } <b> \\text{ DO } <c>"
+  }, {
+    "label" : "Assign",
+    "params" : [ "a", "b" ],
+    "rendering" : "<a> ::= <b>"
+  }, {
+    "label" : "Seq",
+    "params" : [ "a", "b" ],
+    "rendering" : "<a> \\text{ ;; } <b>"
+  }, {
+    "label" : "If",
+    "params" : [ "a", "b", "c" ],
+    "rendering" : "\\text{IF }a  \\text{ THEN } b \\text{ ELSE } b)"
   } ]
 }

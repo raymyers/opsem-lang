@@ -1,19 +1,19 @@
 \[
-\inference {}{ WellTyped\,\Gamma\,SKIP}[SkipT]
+\inference {}{ \Gamma \vdash SKIP}[SkipT]
 \]
 
 \[
-\inference {HasType\,\Gamma\,a\,(TypeOf\,\Gamma\,x)}{ WellTyped\,\Gamma\,(Assign\,x\,a)}[AssignT]
+\inference {\Gamma \vdash a : (\Gamma x)}{ \Gamma \vdash (x ::= a)}[AssignT]
 \]
 
 \[
-\inference {WellTyped\,\Gamma\,c_1 \quad WellTyped\,\Gamma\,c_2}{ WellTyped\,\Gamma\,(Seq\,c_1\,c_2)}[SeqT]
+\inference {\Gamma \vdash c_1 \quad \Gamma \vdash c_2}{ \Gamma \vdash (c_1 \text{ ;; } c_2)}[SeqT]
 \]
 
 \[
-\inference {WellTyped\,\Gamma\,b \quad WellTyped\,\Gamma\,c_1 \quad WellTyped\,\Gamma\,c_2}{ WellTyped\,(If\,b\,c_1\,c_2)}[IfT]
+\inference {\Gamma \vdash b \quad \Gamma \vdash c_1 \quad \Gamma \vdash c_2}{ \Gamma \vdash (\text{IF }a  \text{ THEN } b \text{ ELSE } b))}[IfT]
 \]
 
 \[
-\inference {WellTyped\,\Gamma\,b \quad WellTyped\,\Gamma\,c}{ WellTyped\,\Gamma\,(While\,b\,c)}[WhileT]
+\inference {\Gamma \vdash b \quad \Gamma \vdash c}{ \Gamma \vdash (\text{WHILE } b \text{ DO } c)}[WhileT]
 \]
