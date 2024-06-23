@@ -1,11 +1,13 @@
+import ast.Program;
 import org.antlr.v4.runtime.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConditionValidator {
+public class OpSemLoader {
 
     private final List<String> syntaxErrors;
+    private final OpSemParser parser;
 
     private class ErrorListener extends ConsoleErrorListener {
 
@@ -21,9 +23,9 @@ public class ConditionValidator {
         }
     }
 
-    ConditionValidator(String input){
-        ConditionLexer lexer = new ConditionLexer(CharStreams.fromString(input));
-        ConditionParser parser = new ConditionParser(new CommonTokenStream(lexer));
+    OpSemLoader(String input){
+        OpSemLexer lexer = new OpSemLexer(CharStreams.fromString(input));
+        this.parser = new OpSemParser(new CommonTokenStream(lexer));
 
         ErrorListener errorListener = new ErrorListener();
 
@@ -35,7 +37,10 @@ public class ConditionValidator {
 
         syntaxErrors = errorListener.getSyntaxErrors();
 
-        parser.start();
+
+    }
+    public Program toProgram() {
+        return new OpSemTransformer().transformStart(parser.start());
     }
 
     public boolean valid(){

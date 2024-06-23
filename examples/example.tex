@@ -1,0 +1,44 @@
+\documentclass[12pt]{article}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{semantic}
+\usepackage{url}
+
+\title{Drawing Semantic Diagrams with the \texttt{semantic} Package}
+
+\begin{document}
+
+\[
+\inference {}{ (Skip ,\, s) => s}[Skip]
+\]
+
+\[\inference {}{ (Assign\,x\,a ,\, s) => Put\,s\,(Eval\,a\,s)}[Assign]\]
+
+\[\inference
+{(c_1 ,\, s_1) => s_2 \quad (c_2 ,\, s_2) => s_3}
+{ (Seq\,c_1\,c_2 ,\, s_1) => s_3}[Seq]
+\]
+\[\inference
+{bval\,b\,s_1 \quad (c ,\, s_1) => s_2 \quad (While\,b\,c ,\, s_2) => s_3}
+{ (While\,b\,c ,\, s_1) => s_3}[WhileTrue]
+\]
+
+\[
+\inference {bval\,b\,s1 \quad (c ,\, s1) => s2 \quad (While\,b\,c ,\, s2) => s3}{ (While\,b\,c ,\, s1) => s3}[WhileTrue]
+\]
+\[
+\inference {bval\,b\,s1 \quad c ,\, s1 => s2 \quad While\,b\,c ,\, s2 => s3}{ While\,b\,c ,\, s1 => s3}[WhileTrue]
+\]
+
+Example of a T-diagram from the package documentation:
+
+\begin{center}
+  \begin{picture}(230,100)(-90,-20)
+    \put(0,0){\compiler{\compiler{ML,ML,U},\machine[U$^{-}$]{U},\compiler{\compiler{ML,ML,U},\machine[U$^{-}$]{U},\compiler{ML,U,U}}}}
+  \end{picture}
+\end{center}
+
+See the documentation at \url{http://texdoc.net/pkg/semantic} for more information.
+
+\end{document}

@@ -1,0 +1,283 @@
+{
+  "@type" : "Program",
+  "rules" : [ {
+    "@type" : "SemRule",
+    "name" : "Skip",
+    "topLines" : [ ],
+    "bottomLines" : [ {
+      "@type" : "CondLine",
+      "pre" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "Skip"
+          } ]
+        }, {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s"
+          } ]
+        } ]
+      },
+      "post" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s"
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "@type" : "SemRule",
+    "name" : "Assign",
+    "topLines" : [ ],
+    "bottomLines" : [ {
+      "@type" : "CondLine",
+      "pre" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "Assign"
+          }, {
+            "@type" : "Var",
+            "name" : "x"
+          }, {
+            "@type" : "Var",
+            "name" : "a"
+          } ]
+        }, {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s"
+          } ]
+        } ]
+      },
+      "post" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "Put"
+          }, {
+            "@type" : "Var",
+            "name" : "s"
+          }, {
+            "@type" : "ExprsWrap",
+            "exprs" : {
+              "exprs" : [ {
+                "@type" : "Var",
+                "name" : "Eval"
+              }, {
+                "@type" : "Var",
+                "name" : "a"
+              }, {
+                "@type" : "Var",
+                "name" : "s"
+              } ]
+            }
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "@type" : "SemRule",
+    "name" : "Seq",
+    "topLines" : [ {
+      "@type" : "CondLine",
+      "pre" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "c1"
+          } ]
+        }, {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s1"
+          } ]
+        } ]
+      },
+      "post" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s2"
+          } ]
+        } ]
+      }
+    }, {
+      "@type" : "CondLine",
+      "pre" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "c2"
+          } ]
+        }, {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s2"
+          } ]
+        } ]
+      },
+      "post" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s3"
+          } ]
+        } ]
+      }
+    } ],
+    "bottomLines" : [ {
+      "@type" : "CondLine",
+      "pre" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "Seq"
+          }, {
+            "@type" : "Var",
+            "name" : "c1"
+          }, {
+            "@type" : "Var",
+            "name" : "c2"
+          } ]
+        }, {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s1"
+          } ]
+        } ]
+      },
+      "post" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s3"
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "@type" : "SemRule",
+    "name" : "WhileTrue",
+    "topLines" : [ {
+      "@type" : "CondLine",
+      "pre" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "bval"
+          }, {
+            "@type" : "Var",
+            "name" : "b"
+          }, {
+            "@type" : "Var",
+            "name" : "s1"
+          } ]
+        } ]
+      },
+      "post" : null
+    }, {
+      "@type" : "CondLine",
+      "pre" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "c"
+          } ]
+        }, {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s1"
+          } ]
+        } ]
+      },
+      "post" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s2"
+          } ]
+        } ]
+      }
+    }, {
+      "@type" : "CondLine",
+      "pre" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "While"
+          }, {
+            "@type" : "Var",
+            "name" : "b"
+          }, {
+            "@type" : "Var",
+            "name" : "c"
+          } ]
+        }, {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s2"
+          } ]
+        } ]
+      },
+      "post" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s3"
+          } ]
+        } ]
+      }
+    } ],
+    "bottomLines" : [ {
+      "@type" : "CondLine",
+      "pre" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "While"
+          }, {
+            "@type" : "Var",
+            "name" : "b"
+          }, {
+            "@type" : "Var",
+            "name" : "c"
+          } ]
+        }, {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s1"
+          } ]
+        } ]
+      },
+      "post" : {
+        "@type" : "Cond",
+        "exprs" : [ {
+          "exprs" : [ {
+            "@type" : "Var",
+            "name" : "s3"
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

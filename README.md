@@ -1,6 +1,7 @@
-# antlr4-gradle-template-CSVtoXML-translator
+# 
 
 [![.github/workflows/build.yml](https://github.com/vicsz/antlr4-gradle-template-CSVtoXML-translator/actions/workflows/build.yml/badge.svg)](https://github.com/vicsz/antlr4-gradle-template-CSVtoXML-translator/actions/workflows/build.yml)
+
 
 Simple template Antlr4 gradle template with ANTLR based translation, traversal, and validation.
 
@@ -18,4 +19,9 @@ Only requirement is a JavaJDK installed.
 
 GUI based Antlr Validation tools such as the ANTLR Intellij Plugin help in rapidly verifying Grammer file updates. 
 
-Once plugin is installed, you'll have a right click context of *Test Rule* when viewing the G4 file in the IDE. 
+Once plugin is installed, you'll have a right click context of *Test Rule* when viewing the G4 file in the IDE.
+
+From template: [antlr4-gradle-template-CSVtoXML-translator](https://github.com/vicsz/antlr4-gradle-template-CSVtoXML-translator)
+
+
+http://scholar.princeton.edu/scuellar/blog/2014/03/deduction-trees-latex
