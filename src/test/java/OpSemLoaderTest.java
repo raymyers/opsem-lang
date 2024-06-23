@@ -98,7 +98,7 @@ public class OpSemLoaderTest {
         OpSemLoader subject = new OpSemLoader(input);
         assertTrue(subject.valid(), subject.getSyntaxErrors());
 
-        String latex = LatexRenderer.toLatex(subject.toProgram().rules().get(0));
+        String latex = new LatexRenderer(subject.toProgram()).semRuleToLatex(subject.toProgram().rules().get(0));
         Approvals.verify(latex);
     }
 
@@ -109,7 +109,7 @@ public class OpSemLoaderTest {
         OpSemLoader subject = new OpSemLoader(FULL_PROGRAM_1);
         assertTrue(subject.valid(), subject.getSyntaxErrors());
 
-        String latex = LatexRenderer.toLatex(subject.toProgram());
+        String latex = LatexRenderer.programToLatex(subject.toProgram());
         Approvals.verify(latex);
     }
 
@@ -128,7 +128,7 @@ public class OpSemLoaderTest {
         OpSemLoader subject = new OpSemLoader(FULL_PROGRAM_2);
         assertTrue(subject.valid(), subject.getSyntaxErrors());
 
-        String latex = LatexRenderer.toLatex(subject.toProgram());
+        String latex = LatexRenderer.programToLatex(subject.toProgram());
         Approvals.verify(latex);
     }
 }

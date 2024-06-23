@@ -1,19 +1,19 @@
 \[
-\inference {}{ WellTyped\,context\,SKIP}[SkipT]
+\inference {}{ WellTyped\,\Gamma\,SKIP}[SkipT]
 \]
 
 \[
-\inference {HasType\,context\,a\,(TypeOf\,context\,x)}{ WellTyped\,context\,(Assign\,x\,a)}[AssignT]
+\inference {HasType\,\Gamma\,a\,(TypeOf\,\Gamma\,x)}{ WellTyped\,\Gamma\,(Assign\,x\,a)}[AssignT]
 \]
 
 \[
-\inference {WellTyped\,context\,c_1 \quad WellTyped\,context\,c_2}{ WellTyped\,context\,(Seq\,c_1\,c_2)}[SeqT]
+\inference {WellTyped\,\Gamma\,c_1 \quad WellTyped\,\Gamma\,c_2}{ WellTyped\,\Gamma\,(Seq\,c_1\,c_2)}[SeqT]
 \]
 
 \[
-\inference {WellTyped\,context\,b \quad WellTyped\,context\,c_1 \quad WellTyped\,context\,c_2}{ WellTyped\,(If\,b\,c_1\,c_2)}[IfT]
+\inference {WellTyped\,\Gamma\,b \quad WellTyped\,\Gamma\,c_1 \quad WellTyped\,\Gamma\,c_2}{ WellTyped\,(If\,b\,c_1\,c_2)}[IfT]
 \]
 
 \[
-\inference {WellTyped\,context\,b \quad WellTyped\,context\,c}{ WellTyped\,context\,(While\,b\,c)}[WhileT]
+\inference {WellTyped\,\Gamma\,b \quad WellTyped\,\Gamma\,c}{ WellTyped\,\Gamma\,(While\,b\,c)}[WhileT]
 \]
