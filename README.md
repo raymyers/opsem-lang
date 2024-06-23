@@ -17,13 +17,14 @@ For now, see the [tests](./src/test/java/OpSemLoaderTest.java) for usage. We can
 ```
 
 See `examples/example.tex` for the appropriate LaTeX headers, such as including the semantics package. 
-To render it, try OverLeaf.
+To render it online, try [OverLeaf](https://www.overleaf.com/).
 
 [//]: # ([![.github/workflows/build.yml]&#40;https://github.com/vicsz/antlr4-gradle-template-CSVtoXML-translator/actions/workflows/build.yml/badge.svg&#41;]&#40;https://github.com/vicsz/antlr4-gradle-template-CSVtoXML-translator/actions/workflows/build.yml&#41;)
 
 ## LaTeX setup
 
-Perhaps you want to render a PDG from the command line without going to OverLeaf.
+Perhaps you want to render a PDF from the command line without going to OverLeaf.
+You will need a LaTeX distribution with packages `amsmath` and [semantic](https://ctan.org/pkg/semantic?lang=en).
 
 With TexLive or MacTex installed, this might work:
 
